@@ -1,0 +1,24 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "description": "Cypress testing practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+  "login-test": "npx cypress run  --spec 'cypress/e2e/login.cy.js' --browser chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raymarttt/Cypress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raymarttt/Cypress/issues"
+  },
+  "homepage": "https://github.com/raymarttt/Cypress#readme",
+  "devDependencies": {
+    "cypress": "^14.2.1"
+  }
+}
