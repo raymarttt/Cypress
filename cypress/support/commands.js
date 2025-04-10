@@ -23,3 +23,31 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('auth', (username, password) => { // FUNCTION OR METHOD --> Then i-call natin sya sa spec or test file natin.
+    cy.visit('https://www.saucedemo.com/', {timeout: 240000})
+      cy.get('[data-test="username"]').type(username)
+      cy.get('[data-test="password"]').type(password)
+      cy.get('[data-test="login-button"]').click()
+  }); 
+  
+  Cypress.Commands.add('addToCart', () => {
+   
+    cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').click()
+    cy.get('[data-test="add-to-cart-sauce-labs-bike-light"]').click();
+    cy.get('[data-test="shopping-cart-link"]').click();
+
+  });
+
+  Cypress.Commands.add('checkout', () => {
+
+    cy.get('[data-test="checkout"]').click()
+    cy.get('[data-test="firstName"]').type("Raymart")
+    cy.get('[data-test="lastName"]').type("Lachica")
+    cy.get('[data-test="postalCode"]').type("1207")
+    cy.get('[data-test="continue"]').click()
+    cy.get('[data-test="finish"]').click()
+   
+  });
+  
+  
