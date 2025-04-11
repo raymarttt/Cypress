@@ -4,9 +4,9 @@
   "description": "Cypress testing practice",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
-  "login-test": "npx cypress run --record --key 20b677ff-4a99-4d3a-9cf8-bf42274799e4  --spec 'cypress/e2e/login.cy.js' --browser chrome",
-  "ecom-test": "npx cypress run --spec 'cypress/e2e/ecom-flow.cy.js' --browser chrome"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "login-test": "npx cypress run --record --key 20b677ff-4a99-4d3a-9cf8-bf42274799e4  --spec 'cypress/e2e/login.cy.js' --browser chrome",
+    "ecom-test": "npx cypress run --spec 'cypress/e2e/ecom-flow.cy.js' --browser chrome"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/raymarttt/Cypress#readme",
   "devDependencies": {
+    "@faker-js/faker": "^9.6.0",
     "cypress": "^14.2.1"
   }
 }

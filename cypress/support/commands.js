@@ -1,3 +1,4 @@
+import {generateCustomerData} from '../support/utils.js'
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -49,5 +50,11 @@ Cypress.Commands.add('auth', (username, password) => { // FUNCTION OR METHOD -->
     cy.get('[data-test="finish"]').click()
    
   });
+
+  Cypress.Commands.add('generateData' , () => {
+    let testData = generateCustomerData()
+    cy.writeFile('cypress/fixtures/testData.json', testData);
+  });
+   
   
   
