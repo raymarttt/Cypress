@@ -38,6 +38,7 @@ describe('Register before Checkout', () => {
             cy.get('[data-qa="continue-button"]').click()
             cy.get(':nth-child(10) > a').should('contain', `Logged in as ${user.username}`)
             cy.get(':nth-child(4) > .product-image-wrapper > .single-products > .productinfo > .btn').click()
+            cy.get('.modal-footer > .btn').click();
             cy.get('.shop-menu > .nav > :nth-child(3) > a').click()
             cy.get('.col-sm-6 > .btn').click()
             cy.get('.form-control').type("hope the size fit me")
