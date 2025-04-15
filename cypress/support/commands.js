@@ -55,6 +55,19 @@ Cypress.Commands.add('auth', (username, password) => { // FUNCTION OR METHOD -->
     let testData = generateCustomerData()
     cy.writeFile('cypress/fixtures/testData.json', testData);
   });
-   
+  
+  Cypress.Commands.add('saveCart', () => {
+    cy.window().then((win) => {
+      const cart = win.localStorage.getItem('cart-contents') || '[]';
+      Cypress.env('savedCart', cart);
+    });
+  });
+
+  Cypress.Commands.add('restoreCart', () => {
+    const cart = Cypress.env('savedCart') || '[]';
+    cy.window().then((win) => {
+      win.localStorage.setItem('cart-contents', cart);
+    });
+  });
   
   
