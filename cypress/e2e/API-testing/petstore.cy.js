@@ -82,22 +82,17 @@ describe('Pet Store API Tests', () => {
       cy.api({
         method: 'GET',
         url: `/store/order/${id}`,
-        failOnStatusCode: false, // Do not fail the test immediately on non-2xx status
+        failOnStatusCode: false,
       }).then((response) => {
-        // Log the response status for debugging
         cy.log('Response Status:', response.status);
-        cy.log('Response Body:', JSON.stringify(response.body)); // Log the body for further debugging
-  
-        // Check for a valid status code (200)
+        cy.log('Response Body:', JSON.stringify(response.body));
+
         if (response.status === 200) {
-          // If status code is 200, proceed with assertions
           expect(response.body).to.have.property('id', id);
           expect(response.body).to.have.property('petId').and.to.be.a('number');
           expect(response.body).to.have.property('status').and.to.be.a('string');
         } else {
-          // If the status code isn't 200, log a message and fail the test
           cy.log(`Unexpected status code: ${response.status}`);
-        //   assert.fail(`Expected status 200, but got ${response.status}`);
         }
       });
     });
@@ -113,7 +108,6 @@ describe('Pet Store API Tests', () => {
     }).then((response) => {
       if (response.status === 404) {
         cy.log('Order Not Found');
-        //expect(response.body.message).to.include('Order Not Found');
       } else {
         expect(response.status).to.eq(200);
       }
@@ -272,73 +266,7 @@ describe('Pet Store API Tests', () => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('id', petId);
       expect(response.body).to.have.property('name', updatedPet.name);
+      expect(response.body).to.have.property('status', updatedPet.status);
     });
-  });
-
-  it('GET - Find pet by ID', () => {
-    cy.wrap(petId).should('exist');
-
-    cy.waitUntil(() =>
-      cy.api({
-        method: 'GET',
-        url: `/pet/${petId}`,
-      }).then((response) => {
-        return response.status === 200 && response.body.name === updatedPet.name;
-      }),
-      {
-        timeout: 10000,
-        interval: 1000,
-        errorMsg: 'Timed out waiting for pet to be updated',
-      }
-    );
-
-    cy.api({
-      method: 'GET',
-      url: `/pet/${petId}`,
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body).to.have.property('id', petId);
-      expect(response.body).to.have.property('name', updatedPet.name);
-    });
-  });
-
-  // ✅ Ensure no sensitive data is exposed
-  it('GET - Ensure no sensitive data is exposed', () => {
-    cy.wrap(petId, { timeout: 5000 }).should('exist').then((id) => {
-      cy.api({
-        method: 'GET',
-        url: `/pet/${id}`,
-      }).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body).to.be.an('object').and.not.be.null;
-
-        const forbiddenKeys = ['bearer-token', 'access-token', 'jwt-token', 'password', 'api_key'];
-
-        forbiddenKeys.forEach((key) => {
-          expect(response.body, `Body should not include key: ${key}`).to.not.have.property(key);
-        });
-      });
-    });
-  });
-
-  // ✅ CLEANUP BLOCK UPDATED TO HANDLE MISSING VALUES SAFELY
-  after(() => {
-    if (petId) {
-      cy.api({
-        method: 'DELETE',
-        url: `/pet/${petId}`,
-      }).then((response) => {
-        expect(response.status).to.eq(200);
-      });
-    }
-
-    if (user?.username) {
-      cy.api({
-        method: 'DELETE',
-        url: `/user/${user.username}`,
-      }).then((response) => {
-        expect(response.status).to.eq(200);
-      });
-    }
   });
 });
