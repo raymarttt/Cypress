@@ -1,4 +1,4 @@
-import createUser from "../support/faker"
+import createUser from "../../support/faker"
 
 describe('Login before Checkout', () => {
     before(()=>{

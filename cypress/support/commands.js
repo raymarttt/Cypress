@@ -1,4 +1,8 @@
 import {generateCustomerData} from '../support/utils.js'
+import RegistrationPage from './pages/registration.page.js';
+import Automation_registrationPage from './pages/Automation_registration.page.js';
+import Automation_addCard from './pages/Automation_addCard.page.js';
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -70,4 +74,28 @@ Cypress.Commands.add('auth', (username, password) => { // FUNCTION OR METHOD -->
     });
   });
   
+  //Parabank registration
+  Cypress.Commands.add('fillRegistrationForm', (customerData) => {
+    RegistrationPage.fillSignUpForm(customerData);
+    RegistrationPage.submitSignUpForm();
+    RegistrationPage.verifySignUpSuccess(customerData.username);
+  });
+
+  Cypress.Commands.add('fillregform', (user) => {
+    Automation_registrationPage.fillLoginform(user)
+    Automation_registrationPage.fillsubmitform(user)
+    Automation_registrationPage.fillregistrationform(user)
+    Automation_registrationPage.fillcreateform(user)
+  });
+    
   
+  Cypress.Commands.add('createUser', (user) => {
+    Automation_addCard.fillcardForm(user)
+  
+  
+
+  
+
+
+    
+  });
